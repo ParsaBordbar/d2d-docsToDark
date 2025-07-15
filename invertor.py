@@ -27,13 +27,3 @@ def invert_image_to_dark(input_path, output_path):
     negative_img.save(output_path)
     return output_path
 
-
-
-def main():
-    input_path = './1811.10154v3.pdf'
-    output_path = './dark.pdf'
-    doc_type = input("Please Select the Document Type: ");
-    if (doc_type == 'pdf'):
-        invert_pdf_to_dark(input_path, output_path)
-    elif(doc_type == 'image'):
-        invert_image_to_dark(input_path, output_path)
