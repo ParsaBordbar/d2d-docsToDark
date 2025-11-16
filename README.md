@@ -76,6 +76,8 @@ uvicorn app:app --reload --host 0.0.0.0 --port 8000
 
 The API will be available at `http://localhost:8000`
 
+### Or run with docker-compose!
+
 ## 📖 API Documentation
 
 Once the server is running, visit:
@@ -215,7 +217,6 @@ This project is open source and available under the MIT License.
 
 ## 💡 Future Enhancements
 
-- [ ] Docker support
 - [ ] Batch processing support
 - [ ] Support for more file formats
 - [ ] File cleanup scheduler
