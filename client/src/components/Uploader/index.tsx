@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, Download, AlertCircle, CheckCircle, Loader } from 'lucide-react';
 import newFile from '../../assets/newFile.svg'
+import { API_BASE_URL } from '../../api/base';
 
 interface FileItem {
   id: number;
@@ -13,7 +14,6 @@ interface FileItem {
   errorMessage?: string;
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:1313';
 
 export default function DropZone() {
   const [files, setFiles] = useState<FileItem[]>([]);
@@ -248,9 +248,10 @@ export default function DropZone() {
         {/* Empty State Message */}
         {files.length === 0 && (
           <div className="mt-12 text-center text-gray-400">
-            <p className="text-sm">No files yet. Drop a file or click above to start!</p>
+            <p className="text-sm">No files yet. Drag & Drop files or click above to start!</p>
           </div>
         )}
+      <a href='https://github.com/ParsaBordbar/D2D-Docs2Dark'>Github Repository</a>
       </div>
     </div>
   );
