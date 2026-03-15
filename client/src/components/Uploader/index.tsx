@@ -2,17 +2,7 @@ import { useState } from 'react';
 import { X, Download, AlertCircle, CheckCircle, Loader } from 'lucide-react';
 import newFile from '../../assets/newFile.svg'
 import { API_BASE_URL } from '../../api/base';
-
-interface FileItem {
-  id: number;
-  name: string;
-  size: number;
-  type: string;
-  file: File;
-  status: 'pending' | 'uploading' | 'success' | 'error';
-  downloadUrl?: string;
-  errorMessage?: string;
-}
+import type { FileItem } from '../../types/uploader.type';
 
 
 export default function DropZone() {
