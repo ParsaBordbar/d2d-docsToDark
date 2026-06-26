@@ -1,15 +1,25 @@
 import mimetypes
 import os
 
+from configs import SUPPORTED_IMAGE_EXTENSIONS, PDF_EXTENSION
+
 
 def get_file_extension(file_path: str):
     return os.path.splitext(file_path)[1].lower()
 
-def is_supported_image(extension: str):
-    supported_list = [".png", ".jpg", ".jpeg", ".bmp"]
-    if (supported_list.count(extension) == 1):
-        return True
-    False
+
+def is_supported_image(extension: str) -> bool:
+    return extension.lower() in SUPPORTED_IMAGE_EXTENSIONS
+
+
+def is_supported(extension: str) -> bool:
+    return extension.lower() == PDF_EXTENSION or is_supported_image(extension)
+
+
+def build_output_path(input_path: str) -> str:
+    root, ext = os.path.splitext(input_path)
+    return f"{root}_dark{ext.lower()}"
+
 
 def get_mime_type(file_path: str):
     mime_type, _ = mimetypes.guess_type(file_path)
