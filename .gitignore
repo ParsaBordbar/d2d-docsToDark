@@ -1,0 +1,22 @@
+# Claude
+CLAUDE.md
+.claude
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+ENV/
+
+# Node
+node_modules/
+
+# Env / secrets
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
