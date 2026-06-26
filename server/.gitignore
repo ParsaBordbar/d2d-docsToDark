@@ -1,4 +1,20 @@
-**venv
-**pdf
-**uploads
-**__pycache__
+# Virtual environments
+venv
+.venv
+ENV
+
+# Python
+__pycache__
+*.py[cod]
+*.egg-info
+
+# Runtime artifacts
+uploads
+*.pdf
+
+# Env / secrets
+.env
+.env.*
+
+# OS
+.DS_Store

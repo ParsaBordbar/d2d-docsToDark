@@ -6,15 +6,17 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     poppler-utils \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir fastapi uvicorn pillow pdf2image python-multipart requests
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app.py .
 COPY invertor.py .
 COPY helpers.py .
+COPY cli.py .
 
 RUN mkdir -p uploads
 
