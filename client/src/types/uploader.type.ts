@@ -1,10 +1,12 @@
+export type UploadStatus = 'pending' | 'uploading' | 'success' | 'error';
+
 export interface FileItem {
   id: number;
   name: string;
   size: number;
   type: string;
-  file: File;
-  status: 'pending' | 'uploading' | 'success' | 'error';
+  file?: File;
+  status: UploadStatus;
   downloadUrl?: string;
   errorMessage?: string;
 }

@@ -71,12 +71,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-neon-red);
+  color: var(--color-neon-white);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.25s, border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-neon-red);
 }
 button:focus,
 button:focus-visible {
@@ -94,4 +95,58 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Subtle liquid-glass surface — opt-in via class */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Darker liquid-glass — for controls, buttons, pickers */
+.glass-dark {
+  background: rgba(10, 10, 25, 0.45);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: var(--color-neon-white);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+.glass-dark:hover {
+  background: rgba(30, 30, 55, 0.55);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.glass-dark:active {
+  transform: scale(0.97);
+}
+
+/* macOS-style round icon button (close / actions) */
+.mac-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+.mac-icon-btn:hover {
+  background: rgba(252, 40, 101, 0.85);
+  border-color: rgba(252, 40, 101, 0.9);
+  color: #fff;
+}
+.mac-icon-btn:active {
+  transform: scale(0.9);
 }
