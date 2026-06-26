@@ -1,5 +1,5 @@
 # Docs To Dark (D2D)
-<img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/443bfb88-7f81-4f5a-a7e6-799afb3e1778" />
+<img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/e0eda840-fac3-4054-a2c1-afe1823eb44a" />
 
 Transform your PDFs and images into dark mode with a simple API! No more disconfort for your eyes when studying!
 
@@ -15,8 +15,14 @@ D2D (Docs to Dark) is a FastAPI-based web service that inverts the colors of PDF
 - 🚀 **Fast Processing**: Built on FastAPI; blocking conversion runs in a threadpool so the server stays responsive
 - 📤 **Multiple Upload Options**: Upload single files, batches, or via URL
 - 🖥️ **CLI**: Convert from the terminal with an interactive theme picker — no server needed
+  <img width="918" height="442" alt="5904623981329846147" src="https://github.com/user-attachments/assets/4996170c-207c-4439-bdf3-a416ba731143" />
 - 🧹 **Auto Cleanup**: Background scheduler removes old files automatically
 - 💾 **Easy Downloads**: Get your converted files instantly
+
+## Example
+<img width="1568" height="1003" alt="959f3251-0a6c-4b3b-8f8f-3f8d4d4a872e" src="https://github.com/user-attachments/assets/5f714bbf-5ef9-4343-af6b-24fb2bc19483" />
+<img width="1568" height="1003" alt="6cd83707-5af6-4ae0-a5f0-2dbb5386cab8_959f3251-0a6c-4b3b-8f8f-3f8d4d4a872e_dark" src="https://github.com/user-attachments/assets/9c884536-eb7e-4ffd-b0c1-c0b0593db652" />
+
 
 ## 🎨 Themes
 
