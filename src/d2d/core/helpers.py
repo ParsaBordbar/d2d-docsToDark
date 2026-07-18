@@ -1,10 +1,13 @@
+"""Extension / mime detection and output-path building. No heavy deps."""
+
 import mimetypes
 import os
 
-from configs import SUPPORTED_IMAGE_EXTENSIONS, PDF_EXTENSION
+SUPPORTED_IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".bmp", ".webp", ".tiff", ".tif", ".gif"]
+PDF_EXTENSION = ".pdf"
 
 
-def get_file_extension(file_path: str):
+def get_file_extension(file_path: str) -> str:
     return os.path.splitext(file_path)[1].lower()
 
 
