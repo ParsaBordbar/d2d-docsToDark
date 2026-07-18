@@ -1,22 +1,22 @@
-import argparse
+"""Terminal presentation for the CLI: ANSI colors, banner, theme picker.
+
+Kept apart from argument parsing so `d2d.cli` stays about control flow.
+"""
+
 import sys
 import termios
 import tty
 
-from configs import (
-    DEFAULT_THEME,
-    THEME_INFO,
-    CORAL,
-    GREEN,
-    RED,
-    DIM,
-    BOLD,
-    RESET,
-    HIDE_CURSOR,
-    SHOW_CURSOR,
-)
-from helpers import get_file_extension, is_supported_image, is_supported, build_output_path
-from invertor import invert_image_to_dark, invert_pdf_to_dark, THEMES
+from d2d.core import DEFAULT_THEME, THEME_INFO, THEMES
+
+CORAL = "\033[38;2;215;119;87m"
+GREEN = "\033[38;2;126;186;125m"
+RED = "\033[38;2;224;108;117m"
+DIM = "\033[2m"
+BOLD = "\033[1m"
+RESET = "\033[0m"
+HIDE_CURSOR = "\033[?25l"
+SHOW_CURSOR = "\033[?25h"
 
 
 def _color_enabled() -> bool:
@@ -40,7 +40,7 @@ def banner() -> None:
     print()
 
 
-def interactive_select(default: str) -> str:
+def interactive_select(default: str = DEFAULT_THEME) -> str:
     if not (sys.stdin.isatty() and sys.stdout.isatty()):
         return default
 
@@ -95,61 +95,3 @@ def interactive_select(default: str) -> str:
         sys.stdout.write(SHOW_CURSOR)
     print()
     return names[idx]
-
-
-def convert(input_path: str, output_path: str, theme: str) -> str:
-    ext = get_file_extension(input_path)
-    if ext == ".pdf":
-        return invert_pdf_to_dark(input_path, output_path, theme)
-    if is_supported_image(ext):
-        return invert_image_to_dark(input_path, output_path, theme)
-    raise ValueError(f"Unsupported file type: {ext}")
-
-
-def main(argv=None):
-    parser = argparse.ArgumentParser(description="Convert PDFs/images to dark mode.")
-    parser.add_argument("inputs", nargs="+", help="file(s) to convert")
-    parser.add_argument(
-        "-t", "--theme", default=None, choices=list(THEMES),
-        help=f"dark-mode theme (default: {DEFAULT_THEME}; omit for picker)",
-    )
-    parser.add_argument(
-        "-o", "--output",
-        help="output path (single input only; default inserts _dark suffix)",
-    )
-    args = parser.parse_args(argv)
-
-    if args.output and len(args.inputs) > 1:
-        parser.error("-o/--output cannot be used with multiple inputs")
-
-    banner()
-
-    theme = args.theme
-    if theme is None:
-        try:
-            theme = interactive_select(DEFAULT_THEME)
-        except KeyboardInterrupt:
-            print(c("cancelled", DIM))
-            return 130
-    print(c("theme ", DIM) + c(THEME_INFO[theme][0], CORAL, BOLD))
-    print()
-
-    exit_code = 0
-    for input_path in args.inputs:
-        if not is_supported(get_file_extension(input_path)):
-            print(f" {c('✗', RED)} {input_path} {c('unsupported', DIM)}")
-            exit_code = 1
-            continue
-        output_path = args.output or build_output_path(input_path)
-        try:
-            convert(input_path, output_path, theme)
-            arrow = c("→", DIM)
-            print(f" {c('✓', GREEN)} {input_path} {arrow} {c(output_path, BOLD)}")
-        except Exception as e:
-            print(f" {c('✗', RED)} {input_path} {c(str(e), DIM)}")
-            exit_code = 1
-    return exit_code
-
-
-if __name__ == "__main__":
-    sys.exit(main())
