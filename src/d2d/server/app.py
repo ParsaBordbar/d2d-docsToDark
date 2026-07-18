@@ -6,23 +6,29 @@ from contextlib import asynccontextmanager
 from functools import partial
 
 import requests
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
-from configs import (
-    UPLOAD_DIR,
-    CLEANUP_INTERVAL_SECONDS,
-    FILE_MAX_AGE_SECONDS,
-    ALLOWED_ORIGINS,
-    DOWNLOAD_TIMEOUT_SECONDS,
-    APP_TITLE,
-    APP_INFO,
+from d2d.core import (
     DEFAULT_THEME,
+    THEMES,
+    build_output_path,
+    convert_file,
+    get_file_extension,
+    is_supported,
 )
-from helpers import get_file_extension, is_supported_image, is_supported, build_output_path
-from invertor import invert_image_to_dark, invert_pdf_to_dark, THEMES
+
+from .config import (
+    ALLOWED_ORIGINS,
+    APP_INFO,
+    APP_TITLE,
+    CLEANUP_INTERVAL_SECONDS,
+    DOWNLOAD_TIMEOUT_SECONDS,
+    FILE_MAX_AGE_SECONDS,
+    UPLOAD_DIR,
+)
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
@@ -73,15 +79,8 @@ def _resolve_theme(theme: str | None) -> str:
 
 
 def _convert(input_path: str, theme: str = DEFAULT_THEME) -> str:
-    ext = get_file_extension(input_path)
     output_path = build_output_path(input_path)
-    if ext == ".pdf":
-        invert_pdf_to_dark(input_path, output_path, theme)
-    elif is_supported_image(ext):
-        invert_image_to_dark(input_path, output_path, theme)
-    else:
-        raise ValueError(f"Unsupported file type: {ext}")
-    return output_path
+    return convert_file(input_path, output_path, theme)
 
 
 async def _save_upload(file: UploadFile) -> str:
