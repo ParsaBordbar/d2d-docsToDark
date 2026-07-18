@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "docs-to-dark"
+version = "2.0.0"
+description = "Invert PDFs and images into dark mode — CLI + API"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Parsa Bordbar" }]
+keywords = ["pdf", "dark-mode", "image", "invert", "cli", "fastapi"]
+classifiers = [
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics",
+]
+dependencies = [
+    "pillow>=10",
+    "numpy>=1.24",
+    "pdf2image>=1.17",
+]
+
+[project.optional-dependencies]
+server = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.34",
+    "python-multipart>=0.0.20",
+    "requests>=2.32",
+]
+
+[project.scripts]
+d2d = "d2d.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/ParsaBordbar/d2d-docsToDark"
+Issues = "https://github.com/ParsaBordbar/d2d-docsToDark/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/d2d"]

@@ -1,0 +1,12 @@
+**/__pycache__
+**/*.pyc
+**/.venv
+**/uploads
+**/node_modules
+client
+.git
+.github
+docs
+packaging
+*.md
+!README.md
