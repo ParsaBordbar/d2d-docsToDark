@@ -1,0 +1,29 @@
+# Maintainer: Parsa Bordbar <parsab71@gmail.com>
+#
+# AUR package for D2D — Docs to Dark. Wraps the PyPI sdist.
+# After publishing to PyPI:
+#   1. Set `sha256sums` (run `updpkgsums` in this dir, or `makepkg -g`).
+#   2. `makepkg --printsrcinfo > .SRCINFO`
+#   3. Push PKGBUILD + .SRCINFO to the AUR git repo `d2d`.
+pkgname=d2d
+_pyname=docs_to_dark
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="Invert PDFs and images into dark mode (CLI)"
+arch=('any')
+url="https://github.com/ParsaBordbar/d2d-docsToDark"
+license=('MIT')
+depends=('python' 'python-pillow' 'python-numpy' 'python-pdf2image' 'poppler')
+makedepends=('python-build' 'python-installer' 'python-hatchling' 'python-wheel')
+source=("https://files.pythonhosted.org/packages/source/d/docs-to-dark/${_pyname}-${pkgver}.tar.gz")
+sha256sums=('SKIP') # replace via `updpkgsums`
+
+build() {
+  cd "${_pyname}-${pkgver}"
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "${_pyname}-${pkgver}"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
