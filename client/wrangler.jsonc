@@ -1,0 +1,6 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "d2d",
+  "compatibility_date": "2026-09-03",
+  "pages_build_output_dir": "dist"
+}

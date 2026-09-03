@@ -53,6 +53,14 @@ VITE_API_BASE_URL=https://<user>-d2d-api.hf.space
 - Connect the GitHub repo → set **root directory** to `client`.
 - Build command: `npm run build` · Output dir: `dist`.
 - Add env var `VITE_API_BASE_URL` = the Space URL (same as above).
+  `client/.env` is gitignored, so this **must** be set in Pages → Settings →
+  Variables; otherwise the bundle falls back to `http://localhost:1313`.
+
+`client/wrangler.jsonc` pins `pages_build_output_dir` to `dist`, so Pages
+serves the built bundle even if the dashboard output dir is wrong. If the site
+loads as a blank page and `/src/main.tsx` or `/package.json` return 200, the
+raw source tree was published: the build command was empty or the root
+directory was not `client`. Fix the settings and **Retry deployment**.
 
 ### 3. Close the CORS loop
 Once the Pages URL exists (`https://<proj>.pages.dev`), set the Space's
